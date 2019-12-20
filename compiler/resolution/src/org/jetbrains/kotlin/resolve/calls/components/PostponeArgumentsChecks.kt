@@ -116,21 +116,23 @@ private fun extractLambdaInfoFromFunctionalType(expectedType: UnwrappedType?, ar
     val expectedParameters = expectedType.getValueParameterTypesFromFunctionType()
     val expectedReceiver = expectedType.getReceiverTypeFromFunctionType()?.unwrap()
     val argumentAsFunctionExpression = argument.safeAs<FunctionExpression>()
-    val takeExpected = parametersTypes == null ||
-            when (parametersTypes.size - expectedParameters.size) {
-                1 -> expectedReceiver != null && parametersTypes.first() == expectedReceiver
-                -1 -> argumentAsFunctionExpression?.receiverType == expectedParameters.first().type.unwrap()
-                else -> false
-            }
+
+    val takeExpected = false
+//        argumentAsFunctionExpression == null && (
+//            parametersTypes == null ||
+//                    when (parametersTypes.size - expectedParameters.size) {
+//                        1 -> expectedReceiver != null && parametersTypes.first() == expectedReceiver
+//                        -1 -> argumentAsFunctionExpression?.receiverType == expectedParameters.first().type.unwrap()
+//                        else -> false
+//                    })
     val parameters = if (takeExpected) {
         expectedParameters.map { it.type.unwrap() }
     } else {
-        parametersTypes!!.mapIndexed { index, type ->
+        parametersTypes?.mapIndexed { index, type ->
             type ?: expectedParameters.getOrNull(index)?.type?.unwrap() ?: expectedType.builtIns.nullableAnyType
         }
     }
-    val receiverType =
-        if (takeExpected) argumentAsFunctionExpression?.receiverType ?:expectedReceiver else argumentAsFunctionExpression?.receiverType
+    val receiverType = if (takeExpected) expectedReceiver else argumentAsFunctionExpression?.receiverType
 
     val returnType = argumentAsFunctionExpression?.returnType ?: expectedType.getReturnTypeFromFunctionType().unwrap()
 
@@ -138,7 +140,7 @@ private fun extractLambdaInfoFromFunctionalType(expectedType: UnwrappedType?, ar
         argument,
         expectedType.isSuspendFunctionType,
         receiverType,
-        parameters,
+        parameters ?: expectedParameters.map { it.type.unwrap() },
         returnType,
         typeVariableForLambdaReturnType = null,
         expectedType = expectedType
