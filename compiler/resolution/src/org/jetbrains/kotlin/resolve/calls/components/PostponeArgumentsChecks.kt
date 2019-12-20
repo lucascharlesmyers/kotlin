@@ -117,30 +117,55 @@ private fun extractLambdaInfoFromFunctionalType(expectedType: UnwrappedType?, ar
     val expectedReceiver = expectedType.getReceiverTypeFromFunctionType()?.unwrap()
     val argumentAsFunctionExpression = argument.safeAs<FunctionExpression>()
 
-    val takeExpected = false
-//        argumentAsFunctionExpression == null && (
+    val receiverFromExpected = argumentAsFunctionExpression?.receiverType == null && expectedReceiver != null
+
 //            parametersTypes == null ||
 //                    when (parametersTypes.size - expectedParameters.size) {
 //                        1 -> expectedReceiver != null && parametersTypes.first() == expectedReceiver
 //                        -1 -> argumentAsFunctionExpression?.receiverType == expectedParameters.first().type.unwrap()
 //                        else -> false
 //                    })
-    val parameters = if (takeExpected) {
-        expectedParameters.map { it.type.unwrap() }
-    } else {
-        parametersTypes?.mapIndexed { index, type ->
-            type ?: expectedParameters.getOrNull(index)?.type?.unwrap() ?: expectedType.builtIns.nullableAnyType
+
+    val (parameters, receiver) = when {
+        argumentAsFunctionExpression != null ->
+            // explicit functional type - use types from parameter
+            (argument.parametersTypes?.map { it?.unwrap() ?: expectedType.builtIns.nullableAnyType } ?: emptyList()) to argumentAsFunctionExpression.receiverType
+        parametersTypes?.size ?: 0 == expectedParameters.size && receiverFromExpected ->
+            // missing unused receiver in lambda
+            (parametersTypes?.mapIndexed { index, type ->
+                            type ?: expectedParameters.getOrNull(index)?.type?.unwrap() ?: expectedType.builtIns.nullableAnyType
+            } ?: expectedParameters.map { it.type.unwrap() }) to expectedReceiver
+        parametersTypes?.size ?: 0 - expectedParameters.size == 1 && receiverFromExpected -> {
+            // first lambda parameter should be mapped to expected receiver
+            (parametersTypes?.mapIndexed { index, type ->
+                type ?: run {
+                    if (index == 0) expectedReceiver?.unwrap()
+                    else expectedParameters.getOrNull(index - 1)?.type?.unwrap()
+                } ?: expectedType.builtIns.nullableAnyType
+            } ?: expectedParameters.map { it.type.unwrap() }) to null
         }
+        else ->
+            (parametersTypes?.mapIndexed { index, type ->
+                type ?: expectedParameters.getOrNull(index)?.type?.unwrap() ?: expectedType.builtIns.nullableAnyType
+            } ?: expectedParameters.map { it.type.unwrap() }) to null
     }
-    val receiverType = if (takeExpected) expectedReceiver else argumentAsFunctionExpression?.receiverType
+
+//        if (borrowFromExpected) {
+//        expectedParameters.map { it.type.unwrap() }
+//    } else {
+//        parametersTypes?.mapIndexed { index, type ->
+//            type ?: expectedParameters.getOrNull(index)?.type?.unwrap() ?: expectedType.builtIns.nullableAnyType
+//        }
+//    }
+//    val receiverType = if (borrowFromExpected) expectedReceiver else argumentAsFunctionExpression?.receiverType
 
     val returnType = argumentAsFunctionExpression?.returnType ?: expectedType.getReturnTypeFromFunctionType().unwrap()
 
     return ResolvedLambdaAtom(
         argument,
         expectedType.isSuspendFunctionType,
-        receiverType,
-        parameters ?: expectedParameters.map { it.type.unwrap() },
+        receiver,
+        parameters,
         returnType,
         typeVariableForLambdaReturnType = null,
         expectedType = expectedType
