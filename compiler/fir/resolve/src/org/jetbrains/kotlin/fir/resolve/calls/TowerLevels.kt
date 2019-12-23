@@ -20,6 +20,7 @@ import org.jetbrains.kotlin.fir.scopes.impl.FirAbstractImportingScope
 import org.jetbrains.kotlin.fir.scopes.impl.FirExplicitSimpleImportingScope
 import org.jetbrains.kotlin.fir.symbols.AbstractFirBasedSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.*
+import org.jetbrains.kotlin.fir.types.isExtensionFunctionType
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.utils.addToStdlib.cast
@@ -277,4 +278,7 @@ fun FirCallableDeclaration<*>.dispatchReceiverValue(session: FirSession): ClassD
     return ClassDispatchReceiverValue(symbol)
 }
 
-private fun FirCallableSymbol<*>.hasExtensionReceiver(): Boolean = this.fir.receiverTypeRef != null
+private fun FirCallableSymbol<*>.hasExtensionReceiver(): Boolean {
+    if (fir.receiverTypeRef != null) return true
+    return fir.returnTypeRef.isExtensionFunctionType()
+}

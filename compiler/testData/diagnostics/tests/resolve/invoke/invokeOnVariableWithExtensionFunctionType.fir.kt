@@ -55,11 +55,11 @@ fun test(a: A, b: B) {
     a.foo(b)
 
     with(a) {
-        b.<!UNRESOLVED_REFERENCE!>foo<!>()
+        b.foo()
 
         b.<!UNRESOLVED_REFERENCE!>(foo)()<!>
 
-        <!UNRESOLVED_REFERENCE!>(b.<!UNRESOLVED_REFERENCE!>foo<!>)()<!>
+        (b.foo)()
 
         foo(b)
         (foo)(b)
@@ -77,8 +77,8 @@ fun test(a: A, b: B) {
 
     with(a) {
         with(b) {
-            <!INAPPLICABLE_CANDIDATE!>foo<!>()
-            <!INAPPLICABLE_CANDIDATE!>(foo)()<!>
+            foo()
+            (foo)()
         }
     }
 }

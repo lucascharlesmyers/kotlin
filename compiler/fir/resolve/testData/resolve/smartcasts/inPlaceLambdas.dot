@@ -47,23 +47,16 @@ digraph inPlaceLambdas_kt {
       subgraph cluster_6 {
         color=blue
         15 [label="Enter block"];
-        subgraph cluster_7 {
-          color=blue
-          16 [label="Enter function anonymousFunction"];
-          17 [label="Access variable R|<local>/x|"];
-          18 [label="Function call: R|<local>/x|.R|/A.foo|()"];
-          19 [label="Exit function anonymousFunction"];
-        }
-        20 [label="Function call: R|/run|(<L> = run@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
+        16 [label="Function call: R|/run|(<L> = run@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
     R|<local>/x|.R|/A.foo|()
 }
 )"];
-        21 [label="Exit block"];
+        17 [label="Exit block"];
       }
-      22 [label="Exit when branch result"];
-      23 [label="Exit when"];
+      18 [label="Exit when branch result"];
+      19 [label="Exit when"];
     }
-    24 [label="Exit function test_1" style="filled" fillcolor=red];
+    20 [label="Exit function test_1" style="filled" fillcolor=red];
   }
 
   7 -> {8};
@@ -72,43 +65,52 @@ digraph inPlaceLambdas_kt {
   10 -> {11};
   11 -> {12};
   12 -> {14 13};
-  13 -> {23};
+  13 -> {19};
   14 -> {15};
   15 -> {16};
-  16 -> {19 17};
+  16 -> {17};
   17 -> {18};
   18 -> {19};
-  19 -> {16 20};
-  20 -> {21};
-  21 -> {22};
+  19 -> {20};
+
+  subgraph cluster_7 {
+    color=red
+    21 [label="Enter function anonymousFunction" style="filled" fillcolor=red];
+    22 [label="Access variable R|<local>/x|"];
+    23 [label="Function call: R|<local>/x|.R|/A.foo|()"];
+    24 [label="Exit function anonymousFunction" style="filled" fillcolor=red];
+  }
+
+  21 -> {24 22};
   22 -> {23};
   23 -> {24};
 
   subgraph cluster_8 {
     color=red
     25 [label="Enter function test_2" style="filled" fillcolor=red];
-    subgraph cluster_9 {
-      color=blue
-      26 [label="Enter function anonymousFunction"];
-      27 [label="Access variable R|<local>/x|"];
-      28 [label="Type operator: x as B"];
-      29 [label="Exit function anonymousFunction"];
-    }
-    30 [label="Function call: R|/run|(<L> = run@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
+    26 [label="Function call: R|/run|(<L> = run@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
     (R|<local>/x| as R|B|)
 }
 )"];
-    31 [label="Access variable R|<local>/x|"];
-    32 [label="Function call: R|<local>/x|.R|/B.bar|()"];
-    33 [label="Exit function test_2" style="filled" fillcolor=red];
+    27 [label="Access variable R|<local>/x|"];
+    28 [label="Function call: R|<local>/x|.<Unresolved name: bar>#()"];
+    29 [label="Exit function test_2" style="filled" fillcolor=red];
   }
 
   25 -> {26};
-  26 -> {29 27};
+  26 -> {27};
   27 -> {28};
   28 -> {29};
-  29 -> {26 30};
-  30 -> {31};
+
+  subgraph cluster_9 {
+    color=red
+    30 [label="Enter function anonymousFunction" style="filled" fillcolor=red];
+    31 [label="Access variable R|<local>/x|"];
+    32 [label="Type operator: x as B"];
+    33 [label="Exit function anonymousFunction" style="filled" fillcolor=red];
+  }
+
+  30 -> {33 31};
   31 -> {32};
   32 -> {33};
 
@@ -130,28 +132,19 @@ digraph inPlaceLambdas_kt {
       subgraph cluster_13 {
         color=blue
         42 [label="Enter block"];
-        subgraph cluster_14 {
-          color=blue
-          43 [label="Enter function anonymousFunction"];
-          44 [label="Access variable R|<local>/x|"];
-          45 [label="Function call: R|<local>/x|.R|/A.foo|()"];
-          46 [label="Access variable R|<local>/x|"];
-          47 [label="Type operator: x as B"];
-          48 [label="Exit function anonymousFunction"];
-        }
-        49 [label="Function call: R|/run|(<L> = run@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
+        43 [label="Function call: R|/run|(<L> = run@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
     R|<local>/x|.R|/A.foo|()
     (R|<local>/x| as R|B|)
 }
 )"];
-        50 [label="Access variable R|<local>/x|"];
-        51 [label="Function call: R|<local>/x|.R|/B.bar|()"];
-        52 [label="Exit block"];
+        44 [label="Access variable R|<local>/x|"];
+        45 [label="Function call: R|<local>/x|.<Unresolved name: bar>#()"];
+        46 [label="Exit block"];
       }
-      53 [label="Exit when branch result"];
-      54 [label="Exit when"];
+      47 [label="Exit when branch result"];
+      48 [label="Exit when"];
     }
-    55 [label="Exit function test_3" style="filled" fillcolor=red];
+    49 [label="Exit function test_3" style="filled" fillcolor=red];
   }
 
   34 -> {35};
@@ -160,17 +153,27 @@ digraph inPlaceLambdas_kt {
   37 -> {38};
   38 -> {39};
   39 -> {41 40};
-  40 -> {54};
+  40 -> {48};
   41 -> {42};
   42 -> {43};
-  43 -> {48 44};
+  43 -> {44};
   44 -> {45};
   45 -> {46};
   46 -> {47};
   47 -> {48};
-  48 -> {43 49};
-  49 -> {50};
-  50 -> {51};
+  48 -> {49};
+
+  subgraph cluster_14 {
+    color=red
+    50 [label="Enter function anonymousFunction" style="filled" fillcolor=red];
+    51 [label="Access variable R|<local>/x|"];
+    52 [label="Function call: R|<local>/x|.R|/A.foo|()"];
+    53 [label="Access variable R|<local>/x|"];
+    54 [label="Type operator: x as B"];
+    55 [label="Exit function anonymousFunction" style="filled" fillcolor=red];
+  }
+
+  50 -> {55 51};
   51 -> {52};
   52 -> {53};
   53 -> {54};

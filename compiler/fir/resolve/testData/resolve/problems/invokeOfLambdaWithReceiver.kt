@@ -1,5 +1,9 @@
 interface A
 
 fun test(a: A, block: A.() -> Int) {
-    a.<!UNRESOLVED_REFERENCE!>block<!>()
+    a.block()
+}
+
+fun A.otherTest(block: A.() -> Int) {
+    block()
 }
