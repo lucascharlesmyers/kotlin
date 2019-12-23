@@ -153,7 +153,8 @@ class ScopeTowerLevel(
     private fun FirCallableSymbol<*>.hasConsistentReceivers(extensionReceiver: ReceiverValue?): Boolean =
         when {
             extensionsOnly && !hasExtensionReceiver() -> false
-            !hasConsistentExtensionReceiver(extensionReceiver) -> false
+//            !hasConsistentExtensionReceiver(extensionReceiver) -> false
+            !hasConsistentExtensionReceiver(extensionReceiver) && (extensionReceiver != null || fir.receiverTypeRef != null) -> false
             scope is FirAbstractImportingScope -> true
             else -> dispatchReceiverValue().let { it == null || it.klassSymbol.fir.classKind == ClassKind.OBJECT }
         }
