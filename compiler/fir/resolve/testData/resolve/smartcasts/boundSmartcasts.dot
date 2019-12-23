@@ -149,7 +149,7 @@ digraph boundSmartcasts_kt {
       57 [label="Exit when"];
     }
     58 [label="Access variable R|<local>/y|"];
-    59 [label="Assignmenet: R|<local>/z|"];
+    59 [label="Assignment: R|<local>/z|"];
     subgraph cluster_14 {
       color=blue
       60 [label="Enter when"];
@@ -217,7 +217,7 @@ digraph boundSmartcasts_kt {
     79 [label="Access variable R|<local>/x|"];
     80 [label="Function call: R|<local>/x|.R|kotlin/Int.inc|()"];
     81 [label="Access variable R|<local>/y|"];
-    82 [label="Assignmenet: R|<local>/x|"];
+    82 [label="Assignment: R|<local>/x|"];
     83 [label="Access variable R|<local>/x|"];
     84 [label="Function call: R|<local>/x|.R|kotlin/Int.inc|()"];
     subgraph cluster_18 {

@@ -42,7 +42,7 @@ digraph delayedAssignment_kt {
         color=blue
         13 [label="Enter block"];
         14 [label="Const: Null(null)"];
-        15 [label="Assignmenet: R|<local>/a|"];
+        15 [label="Assignment: R|<local>/a|"];
         16 [label="Exit block"];
       }
       17 [label="Exit when branch result"];
@@ -51,7 +51,7 @@ digraph delayedAssignment_kt {
         color=blue
         19 [label="Enter block"];
         20 [label="Function call: R|/A.A|()"];
-        21 [label="Assignmenet: R|<local>/a|"];
+        21 [label="Assignment: R|<local>/a|"];
         22 [label="Access variable R|<local>/a|"];
         23 [label="Function call: R|<local>/a|.R|/A.foo|()"];
         24 [label="Exit block"];

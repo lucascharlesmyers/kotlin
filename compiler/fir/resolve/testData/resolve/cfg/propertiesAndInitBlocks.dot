@@ -50,7 +50,7 @@ digraph propertiesAndInitBlocks_kt {
     color=red
     13 [label="Enter function setter" style="filled" fillcolor=red];
     14 [label="Const: Int(1)"];
-    15 [label="Assignmenet: F|/x2|"];
+    15 [label="Assignment: F|/x2|"];
     16 [label="Exit function setter" style="filled" fillcolor=red];
   }
 

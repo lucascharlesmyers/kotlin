@@ -11,7 +11,7 @@ digraph callsInPlace_kt {
       color=blue
       2 [label="Enter function anonymousFunction"];
       3 [label="Const: Int(1)"];
-      4 [label="Assignmenet: R|<local>/x|"];
+      4 [label="Assignment: R|<local>/x|"];
       5 [label="Exit function anonymousFunction"];
     }
     6 [label="Function call: R|kotlin/run|<R|kotlin/Unit|>(<L> = run@fun <anonymous>(): R|kotlin/Unit| <kind=EXACTLY_ONCE>  {

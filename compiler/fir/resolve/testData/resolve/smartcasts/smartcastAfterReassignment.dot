@@ -9,7 +9,7 @@ digraph smartcastAfterReassignment_kt {
     1 [label="Const: Int(1)"];
     2 [label="Variable declaration: lvar x: R|kotlin/Any|"];
     3 [label="Const: String()"];
-    4 [label="Assignmenet: R|<local>/x|"];
+    4 [label="Assignment: R|<local>/x|"];
     5 [label="Access variable R|<local>/x|"];
     6 [label="Access variable R|kotlin/String.length|"];
     7 [label="Exit function test_1" style="filled" fillcolor=red];
@@ -45,7 +45,7 @@ digraph smartcastAfterReassignment_kt {
         color=blue
         19 [label="Enter block"];
         20 [label="Const: String()"];
-        21 [label="Assignmenet: R|<local>/x|"];
+        21 [label="Assignment: R|<local>/x|"];
         22 [label="Exit block"];
       }
       23 [label="Exit when branch result"];
@@ -82,11 +82,11 @@ digraph smartcastAfterReassignment_kt {
     29 [label="Const: Null(null)"];
     30 [label="Variable declaration: lvar x: R|kotlin/String?|"];
     31 [label="Const: String()"];
-    32 [label="Assignmenet: R|<local>/x|"];
+    32 [label="Assignment: R|<local>/x|"];
     33 [label="Access variable R|<local>/x|"];
     34 [label="Access variable R|kotlin/String.length|"];
     35 [label="Const: Null(null)"];
-    36 [label="Assignmenet: R|<local>/x|"];
+    36 [label="Assignment: R|<local>/x|"];
     37 [label="Access variable R|<local>/x|"];
     38 [label="Stub" style="filled" fillcolor=gray];
     39 [label="Access variable <Unresolved name: length>#" style="filled" fillcolor=gray];
