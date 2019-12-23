@@ -131,7 +131,7 @@ abstract class AbstractFirDiagnosticsWithCfgTest : AbstractFirDiagnosticsTest() 
                         attributes += "fillcolor=gray"
                     }
                     appendln(attributes.joinToString(separator = " ", prefix = " [", postfix = "];"))
-                    if (it is ExitNode) {
+                    if (it is ExitNode && offset > 0) {
                         exitCluster()
                     }
                 }

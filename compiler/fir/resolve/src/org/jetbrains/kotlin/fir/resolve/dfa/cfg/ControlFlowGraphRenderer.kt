@@ -41,8 +41,8 @@ fun ControlFlowGraph.renderToStringBuilder(builder: StringBuilder) {
     val notVisited = sortedNodes.toMutableSet()
     val maxLineNumberSize = sortedNodes.size.toString().length
 
-    fun List<CFGNode<*>>.renderEdges(nodeIsDead: Boolean): String = map {
-        indices.getValue(it) to it.isDead
+    fun List<CFGNode<*>>.renderEdges(nodeIsDead: Boolean): String = mapNotNull { node ->
+        indices[node]?.to(node.isDead)
     }.sortedBy { it.first }.joinToString(", ") { (index, isDead) ->
         index.toString() + if (isDead && !nodeIsDead) DEAD else ""
     }
@@ -114,9 +114,9 @@ fun CFGNode<*>.render(): String =
 
                 is ConstExpressionNode -> "Const: ${fir.render()}"
                 is VariableDeclarationNode ->
-                    "Variable declaration: ${buildString { FirRenderer(this).visitCallableDeclaration(fir)} }"
+                    "Variable declaration: ${buildString { FirRenderer(this).visitCallableDeclaration(fir) }}"
 
-                is VariableAssignmentNode -> "Assignmenet: ${fir.lValue.render()}"
+                is VariableAssignmentNode -> "Assignment: ${fir.lValue.render()}"
                 is FunctionCallNode -> "Function call: ${fir.render()}"
                 is ThrowExceptionNode -> "Throw: ${fir.render()}"
 

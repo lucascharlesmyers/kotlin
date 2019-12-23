@@ -23,7 +23,7 @@ fun test_2(x: Any?) {
     run {
         x as B
     }
-    x.bar()
+    x.<!UNRESOLVED_REFERENCE!>bar<!>()
 }
 
 fun test_3(x: Any?) {
@@ -32,6 +32,6 @@ fun test_3(x: Any?) {
             x.foo()
             x as B
         }
-        x.bar()
+        x.<!UNRESOLVED_REFERENCE!>bar<!>()
     }
 }

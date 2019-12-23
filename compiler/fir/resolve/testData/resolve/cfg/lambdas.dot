@@ -31,23 +31,16 @@ digraph lambdas_kt {
       subgraph cluster_4 {
         color=blue
         11 [label="Enter block"];
-        subgraph cluster_5 {
-          color=blue
-          12 [label="Enter function anonymousFunction"];
-          13 [label="Access variable R|<local>/x|"];
-          14 [label="Function call: R|<local>/x|.R|kotlin/Int.inc|()"];
-          15 [label="Exit function anonymousFunction"];
-        }
-        16 [label="Function call: R|/run|(<L> = run@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
+        12 [label="Function call: R|/run|(<L> = run@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
     R|<local>/x|.R|kotlin/Int.inc|()
 }
 )"];
-        17 [label="Exit block"];
+        13 [label="Exit block"];
       }
-      18 [label="Exit when branch result"];
-      19 [label="Exit when"];
+      14 [label="Exit when branch result"];
+      15 [label="Exit when"];
     }
-    20 [label="Exit function test_1" style="filled" fillcolor=red];
+    16 [label="Exit function test_1" style="filled" fillcolor=red];
   }
 
   3 -> {4};
@@ -56,15 +49,23 @@ digraph lambdas_kt {
   6 -> {7};
   7 -> {8};
   8 -> {10 9};
-  9 -> {19};
+  9 -> {15};
   10 -> {11};
   11 -> {12};
-  12 -> {15 13};
+  12 -> {13};
   13 -> {14};
   14 -> {15};
-  15 -> {12 16};
-  16 -> {17};
-  17 -> {18};
+  15 -> {16};
+
+  subgraph cluster_5 {
+    color=red
+    17 [label="Enter function anonymousFunction" style="filled" fillcolor=red];
+    18 [label="Access variable R|<local>/x|"];
+    19 [label="Function call: R|<local>/x|.R|kotlin/Int.inc|()"];
+    20 [label="Exit function anonymousFunction" style="filled" fillcolor=red];
+  }
+
+  17 -> {20 18};
   18 -> {19};
   19 -> {20};
 
@@ -141,71 +142,76 @@ digraph lambdas_kt {
   subgraph cluster_12 {
     color=red
     45 [label="Enter function test_3" style="filled" fillcolor=red];
-    subgraph cluster_13 {
-      color=blue
-      46 [label="Enter function anonymousFunction"];
-      47 [label="Const: Int(1)"];
-      48 [label="Jump: ^test_3 Int(1)"];
-      49 [label="Stub" style="filled" fillcolor=gray];
-      50 [label="Exit function anonymousFunction"];
-    }
-    51 [label="Function call: R|/getInt|(<L> = getInt@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
+    46 [label="Function call: R|/getInt|(<L> = getInt@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
     ^test_3 Int(1)
 }
 )"];
-    52 [label="Jump: ^test_3 R|/getInt|(<L> = getInt@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
+    47 [label="Jump: ^test_3 R|/getInt|(<L> = getInt@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
     ^test_3 Int(1)
 }
 )"];
-    53 [label="Stub" style="filled" fillcolor=gray];
-    54 [label="Exit function test_3" style="filled" fillcolor=red];
+    48 [label="Stub" style="filled" fillcolor=gray];
+    49 [label="Exit function test_3" style="filled" fillcolor=red];
   }
 
   45 -> {46};
-  46 -> {50 47};
-  47 -> {48};
-  48 -> {54};
+  46 -> {47};
+  47 -> {49};
+  47 -> {48} [style=dotted];
   48 -> {49} [style=dotted];
-  49 -> {50} [style=dotted];
-  50 -> {46 51};
-  51 -> {52};
-  52 -> {54};
-  52 -> {53} [style=dotted];
-  53 -> {54} [style=dotted];
 
-  subgraph cluster_14 {
+  subgraph cluster_13 {
     color=red
-    55 [label="Enter function test_4" style="filled" fillcolor=red];
-    subgraph cluster_15 {
-      color=blue
-      56 [label="Enter function anonymousFunction"];
-      57 [label="Const: Int(1)"];
-      58 [label="Jump: ^test_4 Int(1)"];
-      59 [label="Stub" style="filled" fillcolor=gray];
-      60 [label="Exit function anonymousFunction"];
-    }
-    61 [label="Function call: R|/getInt|(block = getInt@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
-    ^test_4 Int(1)
-}
-)"];
-    62 [label="Jump: ^test_4 R|/getInt|(block = getInt@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
-    ^test_4 Int(1)
-}
-)"];
-    63 [label="Stub" style="filled" fillcolor=gray];
-    64 [label="Exit function test_4" style="filled" fillcolor=red];
+    50 [label="Enter function anonymousFunction" style="filled" fillcolor=red];
+    51 [label="Const: Int(1)"];
+    52 [label="Jump: ^test_3 Int(1)"];
+    53 [label="Stub" style="filled" fillcolor=gray];
+    54 [label="Exit function test_3"];
   }
+  55 [label="Exit function anonymousFunction" style="filled" fillcolor=red];
+}
 
-  55 -> {56};
-  56 -> {60 57};
-  57 -> {58};
-  58 -> {64};
-  58 -> {59} [style=dotted];
-  59 -> {60} [style=dotted];
-  60 -> {56 61};
-  61 -> {62};
-  62 -> {64};
-  62 -> {63} [style=dotted];
-  63 -> {64} [style=dotted];
+50 -> {55 51};
+51 -> {52};
+52 -> {54};
+52 -> {53} [style=dotted];
+53 -> {55} [style=dotted];
+
+subgraph cluster_14 {
+  color=red
+  56 [label="Enter function test_4" style="filled" fillcolor=red];
+  57 [label="Function call: R|/getInt|(block = getInt@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
+    ^test_4 Int(1)
+}
+)"];
+  58 [label="Jump: ^test_4 R|/getInt|(block = getInt@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
+    ^test_4 Int(1)
+}
+)"];
+  59 [label="Stub" style="filled" fillcolor=gray];
+  60 [label="Exit function test_4" style="filled" fillcolor=red];
+}
+
+56 -> {57};
+57 -> {58};
+58 -> {60};
+58 -> {59} [style=dotted];
+59 -> {60} [style=dotted];
+
+subgraph cluster_15 {
+  color=red
+  61 [label="Enter function anonymousFunction" style="filled" fillcolor=red];
+  62 [label="Const: Int(1)"];
+  63 [label="Jump: ^test_4 Int(1)"];
+  64 [label="Stub" style="filled" fillcolor=gray];
+  65 [label="Exit function test_4"];
+}
+66 [label="Exit function anonymousFunction" style="filled" fillcolor=red];
+
+61 -> {66 62};
+62 -> {63};
+63 -> {65};
+63 -> {64} [style=dotted];
+64 -> {66} [style=dotted];
 
 }

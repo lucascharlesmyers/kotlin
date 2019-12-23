@@ -37,48 +37,50 @@ digraph callsInPlace_kt {
     color=red
     10 [label="Enter function test_2" style="filled" fillcolor=red];
     11 [label="Const: Int(10)"];
-    subgraph cluster_3 {
-      color=blue
-      12 [label="Enter function anonymousFunction"];
-      13 [label="Const: String(test_2)"];
-      14 [label="Exit function anonymousFunction"];
-    }
-    15 [label="Function call: R|kotlin/repeat|(Int(10), <L> = repeat@fun <anonymous>(it: R|kotlin/Int|): R|kotlin/Unit| <kind=UNKNOWN>  {
+    12 [label="Function call: R|kotlin/repeat|(Int(10), <L> = repeat@fun <anonymous>(it: R|kotlin/Int|): R|kotlin/Unit| <kind=UNKNOWN>  {
     String(test_2)
 }
 )"];
-    16 [label="Exit function test_2" style="filled" fillcolor=red];
+    13 [label="Exit function test_2" style="filled" fillcolor=red];
   }
 
   10 -> {11};
   11 -> {12};
-  12 -> {14 13};
-  13 -> {14};
-  14 -> {12 15};
+  12 -> {13};
+
+  subgraph cluster_3 {
+    color=red
+    14 [label="Enter function anonymousFunction" style="filled" fillcolor=red];
+    15 [label="Const: String(test_2)"];
+    16 [label="Exit function anonymousFunction" style="filled" fillcolor=red];
+  }
+
+  14 -> {16 15};
   15 -> {16};
 
   subgraph cluster_4 {
     color=red
     17 [label="Enter function test_3" style="filled" fillcolor=red];
     18 [label="Const: Int(10)"];
-    subgraph cluster_5 {
-      color=blue
-      19 [label="Enter function anonymousFunction"];
-      20 [label="Const: String(test_3)"];
-      21 [label="Exit function anonymousFunction"];
-    }
-    22 [label="Function call: R|kotlin/repeat|(action = repeat@fun <anonymous>(it: R|kotlin/Int|): R|kotlin/Unit| <kind=UNKNOWN>  {
+    19 [label="Function call: R|kotlin/repeat|(action = repeat@fun <anonymous>(it: R|kotlin/Int|): R|kotlin/Unit| <kind=UNKNOWN>  {
     String(test_3)
 }
 , times = Int(10))"];
-    23 [label="Exit function test_3" style="filled" fillcolor=red];
+    20 [label="Exit function test_3" style="filled" fillcolor=red];
   }
 
   17 -> {18};
   18 -> {19};
-  19 -> {21 20};
-  20 -> {21};
-  21 -> {19 22};
+  19 -> {20};
+
+  subgraph cluster_5 {
+    color=red
+    21 [label="Enter function anonymousFunction" style="filled" fillcolor=red];
+    22 [label="Const: String(test_3)"];
+    23 [label="Exit function anonymousFunction" style="filled" fillcolor=red];
+  }
+
+  21 -> {23 22};
   22 -> {23};
 
   subgraph cluster_6 {
@@ -158,69 +160,73 @@ digraph callsInPlace_kt {
   subgraph cluster_11 {
     color=red
     48 [label="Enter function test_6" style="filled" fillcolor=red];
-    subgraph cluster_12 {
-      color=blue
-      49 [label="Enter function anonymousFunction"];
-      50 [label="Const: String(test_6_1)"];
-      51 [label="Exit function anonymousFunction"];
-    }
-    subgraph cluster_13 {
-      color=blue
-      52 [label="Enter function anonymousFunction"];
-      53 [label="Const: String(test_6_2)"];
-      54 [label="Exit function anonymousFunction"];
-    }
-    55 [label="Function call: R|/myRun|(myRun@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
+    49 [label="Function call: R|/myRun|(myRun@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
     String(test_6_1)
 }
 , <L> = myRun@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
     String(test_6_2)
 }
 )"];
-    56 [label="Exit function test_6" style="filled" fillcolor=red];
+    50 [label="Exit function test_6" style="filled" fillcolor=red];
   }
 
   48 -> {49};
-  49 -> {51 50};
-  50 -> {51};
-  51 -> {49 52};
-  52 -> {54 53};
-  53 -> {54};
-  54 -> {52 55};
+  49 -> {50};
+
+  subgraph cluster_12 {
+    color=red
+    51 [label="Enter function anonymousFunction" style="filled" fillcolor=red];
+    52 [label="Const: String(test_6_1)"];
+    53 [label="Exit function anonymousFunction" style="filled" fillcolor=red];
+  }
+
+  51 -> {53 52};
+  52 -> {53};
+
+  subgraph cluster_13 {
+    color=red
+    54 [label="Enter function anonymousFunction" style="filled" fillcolor=red];
+    55 [label="Const: String(test_6_2)"];
+    56 [label="Exit function anonymousFunction" style="filled" fillcolor=red];
+  }
+
+  54 -> {56 55};
   55 -> {56};
 
   subgraph cluster_14 {
     color=red
     57 [label="Enter function test_7" style="filled" fillcolor=red];
-    subgraph cluster_15 {
-      color=blue
-      58 [label="Enter function anonymousFunction"];
-      59 [label="Const: String(test_7_2)"];
-      60 [label="Exit function anonymousFunction"];
-    }
-    subgraph cluster_16 {
-      color=blue
-      61 [label="Enter function anonymousFunction"];
-      62 [label="Const: String(test_7_1)"];
-      63 [label="Exit function anonymousFunction"];
-    }
-    64 [label="Function call: R|/myRun|(block2 = myRun@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
+    58 [label="Function call: R|/myRun|(block2 = myRun@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
     String(test_7_2)
 }
 , block1 = myRun@fun <anonymous>(): R|kotlin/Unit| <kind=UNKNOWN>  {
     String(test_7_1)
 }
 )"];
-    65 [label="Exit function test_7" style="filled" fillcolor=red];
+    59 [label="Exit function test_7" style="filled" fillcolor=red];
   }
 
   57 -> {58};
-  58 -> {60 59};
-  59 -> {60};
-  60 -> {58 61};
-  61 -> {63 62};
-  62 -> {63};
-  63 -> {61 64};
+  58 -> {59};
+
+  subgraph cluster_15 {
+    color=red
+    60 [label="Enter function anonymousFunction" style="filled" fillcolor=red];
+    61 [label="Const: String(test_7_2)"];
+    62 [label="Exit function anonymousFunction" style="filled" fillcolor=red];
+  }
+
+  60 -> {62 61};
+  61 -> {62};
+
+  subgraph cluster_16 {
+    color=red
+    63 [label="Enter function anonymousFunction" style="filled" fillcolor=red];
+    64 [label="Const: String(test_7_1)"];
+    65 [label="Exit function anonymousFunction" style="filled" fillcolor=red];
+  }
+
+  63 -> {65 64};
   64 -> {65};
 
   subgraph cluster_17 {

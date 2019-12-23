@@ -70,10 +70,11 @@ class ControlFlowGraphBuilder {
         val invocationKind = function.invocationKind
         val isInplace = invocationKind.isInplace()
 
-        val previousNode = if (!isInplace && graphs.topOrNull()?.let { it.kind != ControlFlowGraph.Kind.TopLevel } == true) {
-            lastNodes.top()
-        } else {
-            null
+        val previousNode = when {
+            !isInplace && lastNodes.isNotEmpty && graphs.topOrNull()?.let { it.kind != ControlFlowGraph.Kind.TopLevel } == true ->
+                lastNodes.top()
+            else ->
+                null
         }
 
         if (!isInplace) {
@@ -112,7 +113,7 @@ class ControlFlowGraphBuilder {
         levelCounter--
         val exitNode = functionExitNodes.pop()
         val invocationKind = function.invocationKind
-        val isInplace = invocationKind != null
+        val isInplace = invocationKind.isInplace()
         if (!isInplace) {
             exitNodes.pop()
         }
@@ -692,7 +693,7 @@ class ControlFlowGraphBuilder {
         get() = (this as? FirAnonymousFunction)?.invocationKind
 
     private fun InvocationKind?.isInplace(): Boolean {
-        return this != null
+        return this != null && this != InvocationKind.UNKNOWN
     }
 
     fun reset() {
